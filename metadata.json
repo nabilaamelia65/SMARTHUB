@@ -1,6 +1,10 @@
 {
-  "name": "SCHOOLHUB — School Management & Academic Monitoring System",
-  "description": "Sistem Informasi Manajemen Sekolah & Monitoring Akademik Terpadu untuk SMP/MTs (Kelas VII, VIII, IX)",
-  "requestFramePermissions": ["camera"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "SMARTHUB 1 KARTANEGARA — School Management & Academic Monitoring System",
+  "description": "Sistem Informasi Manajemen Madrasah & Monitoring Akademik Terpadu MTsN 1 Kartanegara",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

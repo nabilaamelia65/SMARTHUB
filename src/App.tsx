@@ -17,14 +17,24 @@ import { StaffAttendanceView } from './components/staff-attendance/StaffAttendan
 import { ProfileView } from './components/profile/ProfileView';
 import { DataManagementView } from './components/admin/DataManagementView';
 import { SettingsView } from './components/settings/SettingsView';
+import { PublicWebsiteView } from './components/public/PublicWebsiteView';
 
 const MainAppContent: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [publicPage, setPublicPage] = useState<'website' | 'login'>('website');
 
   if (!isAuthenticated) {
-    return <LoginPage onSuccess={() => setActiveView('dashboard')} />;
+    if (publicPage === 'website') {
+      return <PublicWebsiteView onOpenPortal={() => setPublicPage('login')} />;
+    }
+    return (
+      <LoginPage
+        onSuccess={() => setActiveView('dashboard')}
+        onBackToWebsite={() => setPublicPage('website')}
+      />
+    );
   }
 
   const getMenuTitle = (view: string): string => {
@@ -55,8 +65,10 @@ const MainAppContent: React.FC = () => {
         return 'Manajemen Data Master (CRUD)';
       case 'pengaturan':
         return 'Pengaturan & Identitas Sekolah';
+      case 'website-publik':
+        return 'Website Resmi MTsN 1 Kartanegara';
       default:
-        return 'SCHOOLHUB';
+        return 'Smarthub MTsN 1';
     }
   };
 
@@ -88,6 +100,8 @@ const MainAppContent: React.FC = () => {
         return <DataManagementView />;
       case 'pengaturan':
         return <SettingsView />;
+      case 'website-publik':
+        return <PublicWebsiteView onOpenPortal={() => setActiveView('dashboard')} />;
       default:
         return <DashboardView onNavigate={(v) => setActiveView(v)} />;
     }
@@ -106,7 +120,7 @@ const MainAppContent: React.FC = () => {
         />
 
         {/* Content Area */}
-        <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <div className="flex-1 flex flex-col min-w-0 overflow-y-auto overflow-x-hidden">
           {/* Top Navbar */}
           <Navbar
             onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}

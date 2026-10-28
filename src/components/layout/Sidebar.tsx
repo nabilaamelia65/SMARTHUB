@@ -17,6 +17,7 @@ import {
   X,
   School,
   LogOut,
+  Globe,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -151,6 +152,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       icon: Database,
       badge: 'Admin',
       allowedRoles: ['admin'],
+    },
+    {
+      id: 'website-publik',
+      label: 'Website Publik Madrasah',
+      icon: Globe,
+      badge: 'Publik',
     },
     {
       id: 'pengaturan',

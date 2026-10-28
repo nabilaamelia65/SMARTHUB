@@ -15,9 +15,15 @@ import {
   ChevronUp,
   CheckCircle2,
   Sparkles,
+  Globe,
 } from 'lucide-react';
 
-export const LoginPage: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
+interface LoginPageProps {
+  onSuccess: () => void;
+  onBackToWebsite?: () => void;
+}
+
+export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToWebsite }) => {
   const { login, quickSwitchUser, loggedOutNotice } = useAuth();
   const [nipOrUsername, setNipOrUsername] = useState('197505121999032001'); // Dra. Hj. Siti Rahmawati
   const [password, setPassword] = useState('password123');
@@ -95,6 +101,19 @@ export const LoginPage: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) =>
             Sistem Informasi Manajemen Madrasah & Monitoring Akademik Terpadu
           </p>
         </div>
+
+        {onBackToWebsite && (
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={onBackToWebsite}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-300 hover:text-emerald-200 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/30 px-3 py-1.5 rounded-xl transition cursor-pointer"
+            >
+              <Globe className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Lihat Laman / Website Utama Madrasah</span>
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="mt-7 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
