@@ -1,0 +1,155 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Profil pengguna, jabatan, dan hak akses struktural sekolah",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "nipOrId": { "type": "string", "maxLength": 64 },
+        "username": { "type": "string", "maxLength": 64 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "academicTitle": { "type": "string", "maxLength": 64 },
+        "email": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "position": { "type": "string", "maxLength": 128 },
+        "workUnit": { "type": "string", "maxLength": 128 },
+        "roles": { "type": "array" },
+        "homeroomClassId": { "type": "string", "maxLength": 64 },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "nipOrId", "fullName", "roles", "isActive"]
+    },
+    "SchoolClass": {
+      "title": "SchoolClass",
+      "description": "Rombongan belajar kelas VII, VIII, IX dan penugasan wali kelas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "grade": { "type": "string", "enum": ["VII", "VIII", "IX"] },
+        "name": { "type": "string", "maxLength": 32 },
+        "academicYear": { "type": "string", "maxLength": 16 },
+        "homeroomTeacherId": { "type": "string", "maxLength": 64 },
+        "homeroomTeacherName": { "type": "string", "maxLength": 128 },
+        "qrIdentifier": { "type": "string", "maxLength": 64 },
+        "capacity": { "type": "number" },
+        "roomName": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "grade", "name", "homeroomTeacherId", "qrIdentifier"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Data identitas peserta didik",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "nis": { "type": "string", "maxLength": 32 },
+        "nisn": { "type": "string", "maxLength": 32 },
+        "fullName": { "type": "string", "maxLength": 128 },
+        "gender": { "type": "string", "enum": ["L", "P"] },
+        "classId": { "type": "string", "maxLength": 64 },
+        "absentNumber": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["id", "nis", "fullName", "gender", "classId", "absentNumber"]
+    },
+    "LessonSchedule": {
+      "title": "LessonSchedule",
+      "description": "Jadwal pelajaran mingguan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "classId": { "type": "string", "maxLength": 64 },
+        "className": { "type": "string", "maxLength": 32 },
+        "subjectId": { "type": "string", "maxLength": 64 },
+        "subjectName": { "type": "string", "maxLength": 128 },
+        "teacherId": { "type": "string", "maxLength": 64 },
+        "teacherName": { "type": "string", "maxLength": 128 },
+        "dayOfWeek": { "type": "string", "enum": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"] },
+        "periodNumber": { "type": "number" },
+        "startTime": { "type": "string", "maxLength": 10 },
+        "endTime": { "type": "string", "maxLength": 10 },
+        "roomName": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "classId", "subjectId", "teacherId", "dayOfWeek", "periodNumber"]
+    },
+    "LessonSession": {
+      "title": "LessonSession",
+      "description": "Catatan jurnal KBM dan absensi siswa per sesi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "scheduleId": { "type": "string", "maxLength": 64 },
+        "classId": { "type": "string", "maxLength": 64 },
+        "subjectId": { "type": "string", "maxLength": 64 },
+        "teacherId": { "type": "string", "maxLength": 64 },
+        "date": { "type": "string", "maxLength": 16 },
+        "topic": { "type": "string", "maxLength": 256 },
+        "activityDescription": { "type": "string", "maxLength": 1024 },
+        "attendance": { "type": "array" }
+      },
+      "required": ["id", "classId", "subjectId", "teacherId", "date", "topic"]
+    },
+    "SchoolTask": {
+      "title": "SchoolTask",
+      "description": "Penugasan akademik peserta didik",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 256 },
+        "description": { "type": "string", "maxLength": 1024 },
+        "classId": { "type": "string", "maxLength": 64 },
+        "subjectId": { "type": "string", "maxLength": 64 },
+        "teacherId": { "type": "string", "maxLength": 64 },
+        "dueDate": { "type": "string", "maxLength": 16 }
+      },
+      "required": ["id", "title", "classId", "subjectId", "teacherId", "dueDate"]
+    },
+    "StaffAttendance": {
+      "title": "StaffAttendance",
+      "description": "Presensi masuk dan pulang personel sekolah",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "userId": { "type": "string", "maxLength": 64 },
+        "date": { "type": "string", "maxLength": 16 },
+        "checkInTime": { "type": "string", "maxLength": 16 },
+        "checkOutTime": { "type": "string", "maxLength": 16 },
+        "status": { "type": "string", "maxLength": 32 }
+      },
+      "required": ["id", "userId", "date", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Profil pengguna dan peran"
+    },
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/SchoolClass" },
+      "description": "Data rombel kelas dan wali kelas"
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Data siswa sekolah"
+    },
+    "/lessonSchedules/{scheduleId}": {
+      "schema": { "$ref": "#/entities/LessonSchedule" },
+      "description": "Jadwal pelajaran mingguan"
+    },
+    "/lessonSessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/LessonSession" },
+      "description": "Jurnal pembelajaran dan presensi"
+    },
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/SchoolTask" },
+      "description": "Penugasan akademik guru"
+    },
+    "/staffAttendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/StaffAttendance" },
+      "description": "Presensi guru dan staf"
+    }
+  }
+}
